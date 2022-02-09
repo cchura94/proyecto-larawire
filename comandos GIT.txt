@@ -1,0 +1,20 @@
+comandos GIT
+
+1. iniciar un nuevo repositorio GIT
+
+> git init
+
+2. agregar al area (index) zona intermedia
+> git add .
+
+3. agregar el detalle del cambio o commit (head)
+> git commit -m "proyecto base laravel 8"
+
+4. agregar repositorio remoto
+> git remote add origin https://github.com/cchura94/proyecto-larawire.git
+
+5. push
+> git push -u origin master
+
+----------------------------------
+git pull origin master
