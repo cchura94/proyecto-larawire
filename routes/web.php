@@ -22,4 +22,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::view("/admin", "admin.index");
-Route::view("/admin/categoria", "admin.categoria.index");
+// Route::view("/admin/categoria", "admin.categoria.index");
+Route::view("/categoria", "livewire.categoria.index");
