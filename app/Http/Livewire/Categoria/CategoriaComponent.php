@@ -9,6 +9,7 @@ class CategoriaComponent extends Component
 {
     public $titulo = "Gestión de Categorias";
     public $nombre, $detalle;
+    public $editar= false;
 
     public function render()
     {
@@ -29,10 +30,13 @@ class CategoriaComponent extends Component
         $categoria->save();
     }
 
-    public function editarCategoria()
+    public function editarCategoria(Categoria $cat)
     {
-        // $cat = Categoria::find($cat->id);        
-        $this->nombre = "prueba";
-        $this->detalle = "detalle prueba";
+        //print_r($cat);
+        // $cat = Categoria::find($id);        
+        $this->nombre = $cat->nombre;
+        $this->detalle = $cat->detalle;
+        
+        $this->editar = true;
     }
 }

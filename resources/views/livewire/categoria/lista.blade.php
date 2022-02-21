@@ -16,7 +16,7 @@
             <td>{{ $cat->nombre }}</td>
             <td>{{ $cat->detalle }}</td>
             <td>
-                <button wire:click="editarCategoria">editar</button>
+                <button wire:click="editarCategoria({{$cat}})" class="bg-blue-500 px-4 py-2" @click="openModal()">editar</button>
             </td>
         </tr>
         @endforeach
