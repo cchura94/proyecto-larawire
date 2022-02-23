@@ -4,18 +4,20 @@ namespace App\Http\Livewire\Producto;
 
 use Livewire\Component;
 use App\Models\Producto;
+use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
 class ProductoComponent extends Component
 {
-    use WithPagination;
+    use WithPagination, WithFileUploads;
     protected $paginationTheme = 'bootstrap';
 
     public $nombre, $precio, $cantidad, $descripcion, $imagen, $categoria_id;
+    public $prod_aux;
 
     public function render()
     {
-        $productos = Producto::paginate(2);
+        $productos = Producto::orderBy('id', 'desc')->paginate(2);
         return view('livewire.producto.producto-component', ["productos" => $productos]);
     }
 
@@ -40,5 +42,28 @@ class ProductoComponent extends Component
 
         // responder
         $this->emit("cerrarModal");
+    }
+
+    public function editarImagen($id)
+    {
+        $producto = Producto::find($id);
+        $this->imagen = $producto->imagen;
+        $this->prod_aux = $producto;
+    }
+
+    public function subirImagen()
+    {
+        $this->validate([
+            'imagen' => 'image|max:1024', // 1MB Max
+        ]);
+
+        $nombreimg = time().'.'.$this->imagen->extension(); 
+
+        $this->imagen->storeAs('imagenes', $nombreimg);
+
+        $producto = Producto::find($this->prod_aux->id);
+        $producto->imagen = $nombreimg;
+        $producto->save();
+
     }
 }
