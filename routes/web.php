@@ -21,7 +21,12 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::view("/admin", "admin.index");
-// Route::view("/admin/categoria", "admin.categoria.index");
-Route::view("/categoria", "livewire.categoria.index");
-Route::view("/producto", "livewire.producto.index");
+
+Route::middleware(['auth:sanctum', 'verified'])->prefix("admin")->group(function(){
+    Route::view("/", "admin.index");
+    // Route::view("/admin/categoria", "admin.categoria.index");
+    Route::view("/categoria", "livewire.categoria.index");
+    Route::view("/producto", "livewire.producto.index");
+
+});
+

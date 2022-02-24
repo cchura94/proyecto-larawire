@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Producto;
 
 use Livewire\Component;
 use App\Models\Producto;
+use App\Models\Categoria;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
@@ -17,8 +18,9 @@ class ProductoComponent extends Component
 
     public function render()
     {
-        $productos = Producto::orderBy('id', 'desc')->paginate(2);
-        return view('livewire.producto.producto-component', ["productos" => $productos]);
+        $categorias = Categoria::all();
+        $productos = Producto::orderBy('id', 'desc')->paginate(10);
+        return view('livewire.producto.producto-component', ["productos" => $productos, "categorias" => $categorias]);
     }
 
     public function guardarProducto()
@@ -26,7 +28,8 @@ class ProductoComponent extends Component
         // validar
         $this->validate([
             "nombre" => "required|unique:productos",
-            "cantidad" => "required"
+            "cantidad" => "required",
+            "categoria_id" => "required"
         ]);
 
         // guardar 
@@ -42,6 +45,9 @@ class ProductoComponent extends Component
 
         // responder
         $this->emit("cerrarModal");
+        $this->emit("alerta", "Producto registrado correctamente");
+        // enviar la alert
+        session()->flash('mensaje', 'Producto registrado correctamente');
     }
 
     public function editarImagen($id)
@@ -64,6 +70,45 @@ class ProductoComponent extends Component
         $producto = Producto::find($this->prod_aux->id);
         $producto->imagen = $nombreimg;
         $producto->save();
+
+        session()->flash('mensaje', 'Imagen registrada');
+
+    }
+
+    public function editar($id)
+    {
+        $producto = Producto::find($id);
+        $this->nombre = $producto->nombre;
+        $this->precio = $producto->precio;
+        $this->cantidad = $producto->cantidad;
+        $this->descripcion = $producto->descripcion;
+        $this->categoria_id = $producto->categoria_id;
+        $this->imagen = $producto->imagen;
+
+        $this->prod_aux = $producto;
+    }
+
+    public function modificar()
+    {
+        $this->validate([
+            "nombre" => "required|unique:productos,nombre,".$this->prod_aux->id,
+            "cantidad" => "required",
+            "categoria_id" => "required"
+        ]);
+
+        // 
+        $producto = Producto::find($this->prod_aux->id);
+        $producto->nombre = $this->nombre;
+        $producto->precio = $this->precio;
+        $producto->cantidad = $this->cantidad;
+        $producto->descripcion = $this->descripcion;
+        $producto->categoria_id = $this->categoria_id;
+        $producto->save();
+
+        $this->emit("cerrarModal");
+        $this->emit("alerta", 'Producto Modificado');
+
+        session()->flash('mensaje', 'Producto Modificado');
 
     }
 }
