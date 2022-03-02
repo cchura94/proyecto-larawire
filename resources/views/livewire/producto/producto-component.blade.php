@@ -90,7 +90,7 @@
                 <td>{{ $prod->cantidad }}</td>
                 <td>{{ $prod->categoria->nombre }}</td>
                 <td>
-                <!--a href="{{ asset('imagenes/'.$prod->imagen) }}" target="_blank">{{ asset('imagenes/'.$prod->imagen) }}</a-->
+                  <!--a href="{{ asset('imagenes/'.$prod->imagen) }}" target="_blank">{{ asset('imagenes/'.$prod->imagen) }}</a-->
                   <img src="{{ asset('imagenes/'.$prod->imagen) }}" width="70px" alt="">
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalCargaImagen" wire:click="editarImagen({{ $prod->id }})">
                     <i class="fa fa-image"></i>
