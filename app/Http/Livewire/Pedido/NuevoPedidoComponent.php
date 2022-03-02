@@ -36,12 +36,7 @@ class NuevoPedidoComponent extends Component
         array_push($this->carrito, $p);
     }
 
-    public function quitarCarrito($id){
-        $index = 0;
-        foreach ($this->carrito as $prod)
-        {
-            if ($prod['id']==$id) unset($this->carrito[$index]);
-            $index++;
-        }
+    public function quitarCarrito($index){
+        array_splice($this->carrito, $index, 1);
     }
 }

@@ -75,7 +75,7 @@
                                     <td>{{$p['cantidad']}}</td>
                                     <td>{{$p['precio'] * $p['cantidad'] }}</td>
                                     <td>
-                                        <button class="btn btn-danger btn-xs" wire:click="quitarCarrito({{$p['id']}})">
+                                        <button class="btn btn-danger btn-xs" wire:click="quitarCarrito({{$loop->index}})">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </td>
