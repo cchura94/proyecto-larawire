@@ -15,7 +15,7 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">Nuevo Producto</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -35,10 +35,15 @@
                   @enderror
                   <label for="">Categoria</label>
                   <select wire:model="categoria_id" class="form-control">
+                    <option value=""></option>
                     @foreach ($categorias as $cat)
                     <option value="{{ $cat->id }}">{{ $cat->nombre }}</option>
                     @endforeach
                   </select>
+                  @error("categoria_id")
+                  <div class="alert alert-danger">{{ $message }}</div>
+                  @enderror
+                  {{ $categoria_id }}
                   <label for="">Descripción</label>
                   <textarea class="form-control" wire:model="descripcion"></textarea>
                 </div>
@@ -46,6 +51,7 @@
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                   <button type="button" class="btn btn-primary" wire:click="guardarProducto()">Guardar producto</button>
                 </div>
+                {{ $categoria_id }}
               </div>
             </div>
           </div>
