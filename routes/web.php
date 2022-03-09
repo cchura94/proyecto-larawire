@@ -29,5 +29,6 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix("admin")->group(function
     Route::view("/categoria", "livewire.categoria.index");
     Route::view("/producto", "livewire.producto.index");
     Route::view("/pedido/nuevo", "livewire.pedido.index");
+    Route::view("/pedido", "livewire.pedido.lista");
 });
 
